@@ -1,0 +1,42 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/codegangsta/cli",
+			"repository": "https://github.com/codegangsta/cli",
+			"revision": "bca61c476e3c752594983e4c9bcd5f62fb09f157",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mostafah/fsync",
+			"repository": "https://github.com/mostafah/fsync",
+			"revision": "c6c091869440de8557a31509db5f05590d1a6561",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/olekukonko/tablewriter",
+			"repository": "https://github.com/olekukonko/tablewriter",
+			"revision": "bc39950e081b457853031334b3c8b95cdfe428ba",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/stretchr/testify/assert",
+			"repository": "https://github.com/stretchr/testify",
+			"revision": "089c7181b8c728499929ff09b62d3fdd8df8adff",
+			"branch": "master",
+			"path": "/assert"
+		},
+		{
+			"importpath": "github.com/termie/go-shutil",
+			"repository": "https://github.com/termie/go-shutil",
+			"revision": "bcacb06fecaeec8dc42af03c87c6949f4a05c74c",
+			"branch": "master"
+		},
+		{
+			"importpath": "gopkg.in/yaml.v2",
+			"repository": "https://gopkg.in/yaml.v2",
+			"revision": "7ad95dd0798a40da1ccdff6dff35fd177b5edf40",
+			"branch": "v2"
+		}
+	]
+}
