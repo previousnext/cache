@@ -41,6 +41,11 @@ $ cache snapshot
 
 ```bash
 $ cache status
+                HASH               |     FILE      |    RESTORE    |   STATUS
++----------------------------------+---------------+---------------+------------+
+  f7fa752830592c66ed7fd258876ebf38 | Gemfile.lock  | vendor/bundle | Not cached
+  NULL                             | composer.lock | vendor        | Not cached
+  NULL                             | packages.json | node_modules  | Not cached
 ```
 
 **Restore from cache**
