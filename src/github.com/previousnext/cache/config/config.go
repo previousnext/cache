@@ -4,12 +4,13 @@ import (
 	"encoding/hex"
 	"io/ioutil"
 	"path/filepath"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
 
 type Config struct {
-	HashFile string   `yaml:"hash_file"`
+	HashFile []string `yaml:"hash_file"`
 	Restore  []string `yaml:"restore"`
 }
 
@@ -37,4 +38,12 @@ func (c *Config) Hash() (string, error) {
 		return "", e
 	}
 	return hex.EncodeToString(h), nil
+}
+
+func (c *Config) HashFileFlat() string {
+	return strings.Join(c.HashFile, ",")
+}
+
+func (c *Config) RestoreFlat() string {
+	return strings.Join(c.Restore, ",")
 }

@@ -9,19 +9,25 @@ import (
 func TestLoadConfig(t *testing.T) {
 	a := []Config{
 		{
-			HashFile: "Gemfile.lock",
+			HashFile: []string{
+				"Gemfile.lock",
+			},
 			Restore: []string{
 				"vendor/bundle",
 			},
 		},
 		{
-			HashFile: "composer.lock",
+			HashFile: []string{
+				"composer.lock",
+			},
 			Restore: []string{
 				"vendor",
 			},
 		},
 		{
-			HashFile: "packages.json",
+			HashFile: []string{
+				"packages.json",
+			},
 			Restore: []string{
 				"node_modules",
 			},

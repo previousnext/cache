@@ -6,17 +6,21 @@ import (
 	"os"
 )
 
-func ComputeMd5(filePath string) ([]byte, error) {
+func ComputeMd5(files []string) ([]byte, error) {
 	var result []byte
-	file, err := os.Open(filePath)
-	if err != nil {
-		return result, err
-	}
-	defer file.Close()
 
 	hash := md5.New()
-	if _, err := io.Copy(hash, file); err != nil {
-		return result, err
+	for _, f := range files {
+		file, err := os.Open(f)
+		if err != nil {
+			return result, err
+		}
+		defer file.Close()
+
+		_, err = io.Copy(hash, file)
+		if err != nil {
+			return result, err
+		}
 	}
 
 	return hash.Sum(result), nil

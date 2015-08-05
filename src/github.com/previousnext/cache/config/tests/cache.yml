@@ -1,9 +1,12 @@
-- hash_file: Gemfile.lock
+- hash_file:
+    - Gemfile.lock
   restore:
     - vendor/bundle
-- hash_file: composer.lock
+- hash_file:
+    - composer.lock
   restore:
     - vendor
-- hash_file: packages.json
+- hash_file:
+    - packages.json
   restore:
     - node_modules

@@ -3,13 +3,16 @@ package folder
 import (
 	"fmt"
 	"os"
-	"strings"
 
 	"github.com/mostafah/fsync"
 	"github.com/olekukonko/tablewriter"
 
 	backend "github.com/previousnext/cache/backend"
 	"github.com/previousnext/cache/config"
+)
+
+var (
+	folderDir = "/tmp/cache"
 )
 
 type FolderBackend struct{}
@@ -19,33 +22,31 @@ func init() {
 }
 
 func (o *FolderBackend) Snapshot(c []config.Config) error {
-	d := "/tmp/cache"
-
 	// Remove the directory since we are going to rebuild it.
-	os.RemoveAll(d)
+	os.RemoveAll(folderDir)
 
 	for _, v := range c {
 		// This is the hash of the file which we use to determine the diretory
 		// which it is stored in.
 		h, e := v.Hash()
 		if e != nil {
-			Output("Snapshot", "Hash does not exist for "+v.HashFile)
+			Output("Snapshot", "Hash does not exist for "+v.HashFileFlat())
 			continue
 		}
 
 		// Loop over the folders.
 		for _, f := range v.Restore {
-			p := d + "/" + h + "/" + f
+			p := folderDir + "/" + h + "/" + f
 
 			// Blow away and recreate the snaphost directory.
-			os.MkdirAll(p, 0644)
+			os.MkdirAll(p, 0777)
 
 			// Copy the directory contents to this new directory.
 			err := fsync.Sync(p, f)
 			if err != nil {
 				Output("Snapshot", err.Error())
 			} else {
-				Output("Snapshot", v.HashFile+" - "+f+" to "+p)
+				Output("Snapshot", v.HashFileFlat()+" - "+f+" to "+p)
 			}
 		}
 	}
@@ -53,31 +54,29 @@ func (o *FolderBackend) Snapshot(c []config.Config) error {
 }
 
 func (o *FolderBackend) Restore(c []config.Config) error {
-	d := "/tmp/cache"
-
 	for _, v := range c {
 		// This is the hash of the file which we use to determine the diretory
 		// which it is stored in.
 		h, e := v.Hash()
 		if e != nil {
-			Output("Restore", "Hash does not exist for "+v.HashFile)
+			Output("Restore", "Hash does not exist for "+v.HashFileFlat())
 			continue
 		}
 
 		// Loop over the folders.
 		for _, f := range v.Restore {
-			p := d + "/" + h + "/" + f
+			p := folderDir + "/" + h + "/" + f
 
 			// Blow away and recreate the target directory.
 			os.RemoveAll(f)
-			os.MkdirAll(f, 0644)
+			os.MkdirAll(f, 0777)
 
 			// Copy the directory contents to this new directory.
 			err := fsync.Sync(f, p)
 			if err != nil {
 				Output("Restore", err.Error())
 			} else {
-				Output("Restore", v.HashFile+" - "+p+" to "+f)
+				Output("Restore", v.HashFileFlat()+" - "+p+" to "+f)
 			}
 		}
 	}
@@ -86,8 +85,6 @@ func (o *FolderBackend) Restore(c []config.Config) error {
 
 // Helper function to print to the screen in a consistent way.
 func (o *FolderBackend) Print(c []config.Config) error {
-	d := "/tmp/cache"
-
 	var data [][]string
 	for _, i := range c {
 		// This is a row in the table to be printed.
@@ -98,15 +95,15 @@ func (o *FolderBackend) Print(c []config.Config) error {
 
 		// Check if this file/folders have a cache setup.
 		cd := "Not cached"
-		_, err := os.Stat(d + "/" + h)
+		_, err := os.Stat(folderDir + "/" + h)
 		if err == nil {
 			cd = "Cached"
 		}
 
 		n := []string{
 			h,
-			i.HashFile,
-			strings.Join(i.Restore, ","),
+			i.HashFileFlat(),
+			i.RestoreFlat(),
 			cd,
 		}
 		data = append(data, n)
