@@ -9,18 +9,25 @@ import (
 )
 
 type RestoreCommand struct {
-	Caches []*Cache
+	File      string
+	Directory string
 }
 
-func configureCmdRestore(app *kingpin.Application, caches []*Cache) {
-	c := &RestoreCommand{
-		Caches: caches,
-	}
-	app.Command("restore", "Restore from the cache").Action(c.Run)
+func configureCmdRestore(app *kingpin.Application) {
+	c := &RestoreCommand{}
+	r := app.Command("restore", "Restore from the cache").Action(c.Run)
+	r.Flag("file", "Cache configuration file").Default(".cache.yml").OverrideDefaultFromEnvar("CACHE_FILE").StringVar(&c.File)
+	r.Flag("dir", "The directory to cache into").Default("/var/tmp/cache").OverrideDefaultFromEnvar("CACHE_DIR").StringVar(&c.Directory)
 }
 
 func (c *RestoreCommand) Run(k *kingpin.ParseContext) error {
-	for _, cs := range c.Caches {
+	// Load up the cache configuration,
+	caches, err := NewCache(c.File, c.Directory)
+	if err != nil {
+		Exit(err.Error())
+	}
+
+	for _, cs := range caches {
 		// Check the cache directory exists.
 		if !cs.CachedExists {
 	    	fmt.Printf("Cannot find cache for: %s\n", cs.Directory)

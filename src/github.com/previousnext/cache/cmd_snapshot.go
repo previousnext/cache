@@ -9,18 +9,25 @@ import (
 )
 
 type SnapshotCommand struct {
-	Caches []*Cache
+	File      string
+	Directory string
 }
 
-func configureCmdSnapshot(app *kingpin.Application, caches []*Cache) {
-	c := &SnapshotCommand{
-		Caches: caches,
-	}
-	app.Command("snapshot", "Take a snapshot of the current directories").Action(c.Run)
+func configureCmdSnapshot(app *kingpin.Application) {
+	c := &SnapshotCommand{}
+	s := app.Command("snapshot", "Take a snapshot of the current directories").Action(c.Run)
+	s.Flag("file", "Cache configuration file").Default(".cache.yml").OverrideDefaultFromEnvar("CACHE_FILE").StringVar(&c.File)
+	s.Flag("dir", "The directory to cache into").Default("/var/tmp/cache").OverrideDefaultFromEnvar("CACHE_DIR").StringVar(&c.Directory)
 }
 
 func (c *SnapshotCommand) Run(k *kingpin.ParseContext) error {
-	for _, cs := range c.Caches {
+	// Load up the cache configuration,
+	caches, err := NewCache(c.File, c.Directory)
+	if err != nil {
+		Exit(err.Error())
+	}
+
+	for _, cs := range caches {
 		// Check the cache directory exists.
 		if !cs.DirectoryExists {
 	    	fmt.Printf("Cannot find directory to snapshot: %s\n", cs.Directory)
