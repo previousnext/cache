@@ -4,57 +4,50 @@
 		{
 			"importpath": "github.com/alecthomas/kingpin",
 			"repository": "https://github.com/alecthomas/kingpin",
-			"revision": "7c59ad7225f57f0a5d667b01547b3b58f4d8692a",
+			"revision": "46aba6af542541c54c5b7a71a9dfe8f2ab95b93a",
 			"branch": "master"
 		},
 		{
 			"importpath": "github.com/alecthomas/template",
 			"repository": "https://github.com/alecthomas/template",
-			"revision": "b867cc6ab45cece8143cfcc6fc9c77cf3f2c23c0",
+			"revision": "14fd436dd20c3cc65242a9f396b61bfc8a3926fc",
 			"branch": "master"
 		},
 		{
 			"importpath": "github.com/alecthomas/units",
 			"repository": "https://github.com/alecthomas/units",
-			"revision": "6b4e7dc5e3143b85ea77909c72caf89416fc2915",
+			"revision": "2efee857e7cfd4f3d0138cc3cbb1b4966962b93a",
 			"branch": "master"
 		},
 		{
-			"importpath": "github.com/codegangsta/cli",
-			"repository": "https://github.com/codegangsta/cli",
-			"revision": "bca61c476e3c752594983e4c9bcd5f62fb09f157",
+			"importpath": "github.com/go-yaml/yaml",
+			"repository": "https://github.com/go-yaml/yaml",
+			"revision": "f7716cbe52baa25d2e9b0d0da546fcf909fc16b4",
+			"branch": "v2"
+		},
+		{
+			"importpath": "github.com/gosuri/uitable",
+			"repository": "https://github.com/gosuri/uitable",
+			"revision": "cacfc559e8712a81692496c5147c80aced020e51",
+			"branch": "master"
+		},
+		{
+			"importpath": "github.com/mattn/go-runewidth",
+			"repository": "https://github.com/mattn/go-runewidth",
+			"revision": "e882a96ec18dd43fa283187b66af74497c9101c0",
 			"branch": "master"
 		},
 		{
 			"importpath": "github.com/mostafah/fsync",
 			"repository": "https://github.com/mostafah/fsync",
-			"revision": "c6c091869440de8557a31509db5f05590d1a6561",
+			"revision": "6c37e2827238edc544397801799b7f7cad4678d6",
 			"branch": "master"
 		},
 		{
-			"importpath": "github.com/olekukonko/tablewriter",
-			"repository": "https://github.com/olekukonko/tablewriter",
-			"revision": "bc39950e081b457853031334b3c8b95cdfe428ba",
+			"importpath": "gopkg.in/alecthomas/kingpin.v2",
+			"repository": "https://gopkg.in/alecthomas/kingpin.v2",
+			"revision": "24b74030480f0aa98802b51ff4622a7eb09dfddd",
 			"branch": "master"
-		},
-		{
-			"importpath": "github.com/stretchr/testify/assert",
-			"repository": "https://github.com/stretchr/testify",
-			"revision": "089c7181b8c728499929ff09b62d3fdd8df8adff",
-			"branch": "master",
-			"path": "/assert"
-		},
-		{
-			"importpath": "github.com/termie/go-shutil",
-			"repository": "https://github.com/termie/go-shutil",
-			"revision": "bcacb06fecaeec8dc42af03c87c6949f4a05c74c",
-			"branch": "master"
-		},
-		{
-			"importpath": "gopkg.in/yaml.v2",
-			"repository": "https://gopkg.in/yaml.v2",
-			"revision": "7ad95dd0798a40da1ccdff6dff35fd177b5edf40",
-			"branch": "v2"
 		}
 	]
 }

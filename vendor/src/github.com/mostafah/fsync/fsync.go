@@ -31,7 +31,7 @@ import (
 	"io"
 	"io/ioutil"
 	"os"
-	"path"
+	"path/filepath"
 	"runtime"
 )
 
@@ -85,7 +85,7 @@ func (s *Syncer) Sync(dst, src string) error {
 // SyncTo syncs srcs files or directories into to directory.
 func (s *Syncer) SyncTo(to string, srcs ...string) error {
 	for _, src := range srcs {
-		dst := path.Join(to, path.Base(src))
+		dst := filepath.Join(to, filepath.Base(src))
 		if err := s.Sync(dst, src); err != nil {
 			return err
 		}
@@ -171,8 +171,8 @@ func (s *Syncer) sync(dst, src string) {
 	// deletion below
 	m := make(map[string]bool, len(files))
 	for _, file := range files {
-		dst2 := path.Join(dst, file.Name())
-		src2 := path.Join(src, file.Name())
+		dst2 := filepath.Join(dst, file.Name())
+		src2 := filepath.Join(src, file.Name())
 		s.sync(dst2, src2)
 		m[file.Name()] = true
 	}
@@ -183,7 +183,7 @@ func (s *Syncer) sync(dst, src string) {
 		check(err)
 		for _, file := range files {
 			if !m[file.Name()] {
-				check(os.RemoveAll(path.Join(dst, file.Name())))
+				check(os.RemoveAll(filepath.Join(dst, file.Name())))
 			}
 		}
 	}
@@ -203,7 +203,6 @@ func (s *Syncer) syncstats(dst, src string) {
 	// update dst's permission bits
 	if dstat.Mode().Perm() != sstat.Mode().Perm() {
 		check(os.Chmod(dst, sstat.Mode().Perm()))
-		return
 	}
 
 	// update dst's modification time

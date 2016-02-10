@@ -13,15 +13,17 @@ A simple cache utility.
 Configuration for this application is all done through the following YAML file:
 
 ```yaml
-- hash_file:
-    - composer.lock
-    - Gemfile.lock
-  restore:
-    - vendor
-- hash_file:
-    - packages.json
-  restore:
-    - node_modules
+- directory: vendor
+  hash:
+  - composer.lock
+  - Gemfile.lock
+- directory: bin
+  hash:
+  - composer.lock
+  - Gemfile.lock
+- directory: node_modules
+  hash:
+  - packages.json
 ```
 
 **Concepts**
@@ -40,12 +42,13 @@ $ cache snapshot
 **Check folders are cached**
 
 ```bash
-$ cache status
-                HASH               |     FILE      |    RESTORE    |   STATUS
-+----------------------------------+---------------+---------------+------------+
-  f7fa752830592c66ed7fd258876ebf38 | Gemfile.lock  | vendor/bundle | Not cached
-  NULL                             | composer.lock | vendor        | Not cached
-  NULL                             | packages.json | node_modules  | Not cached
+$ cache list
+
+HASH                            	FILES                     	DIRECTORY   	STATUS
+----                            	-----                     	---------
+1846fec897c7639c8303e35d8b9d6cad	composer.lock,Gemfile.lock	vendor      	Cached
+1846fec897c7639c8303e35d8b9d6cad	composer.lock,Gemfile.lock	bin         	Cached
+NULL                            	packages.json             	node_modules	Not Cached
 ```
 
 **Restore from cache**

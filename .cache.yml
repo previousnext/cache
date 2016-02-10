@@ -1,0 +1,9 @@
+- files:
+    - composer.lock
+    - Gemfile.lock
+  restore:
+    - vendor
+- files:
+    - packages.json
+  restore:
+    - node_modules
