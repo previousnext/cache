@@ -1,13 +1,18 @@
 #!/usr/bin/make -f
 
+GO=go
 GB=gb
 
-all: test
+darwin-amd64:
+	env GOOS=darwin GOARCH=amd64 $(GB) build
 
-build:
-	@echo "Building..."
-	@$(GB) build all
+linux-amd64:
+	env GOOS=linux GOARCH=amd64 $(GB) build
 
-test: build
-	@echo "Running tests..."
-	@$(GB) test -test.v=true
+all: test clean darwin-amd64 linux-amd64
+
+clean:
+	rm -fR pkg bin
+
+test:
+	        $(GB) test -test.v

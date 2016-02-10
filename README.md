@@ -28,8 +28,8 @@ Configuration for this application is all done through the following YAML file:
 
 **Concepts**
 
-* **Hash file** - The files used to generate a hash for computing if the cache has invalidated.
-* **Restore** - A list of directories used for restore.
+* **Directory** - The directory which will be snapshotted and restored.
+* **Hash** - The files which build up a unqiue hash.
 
 ## Usage
 
